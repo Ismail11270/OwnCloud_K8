@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb
+  namespace: my-cloud
+  labels:
+    app: mariadb
+spec:
+  # strategy:
+    # type: Recreate
+  serviceName: 'mariadb'
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: centos/mariadb-102-centos7
+        imagePullPolicy: Always
+        env:
+        # - name: MARIADB_ROOT_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: maria-secret
+        #       key: maria-root-password
+        # - name: MARIADB_USERNAME
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: maria-secret
+        #       key: maria-username
+        # - name: MARIADB_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: maria-secret
+        #       key: maria-password
+        - name: MYSQL_ROOT_PASSWORD
+          value: owncloud
+        # - name: MYSQL_USER
+        #   value: owncloud
+        # - name: MYSQL_PASSWORD
+        #   value: owncloud
+        - name: MYSQL_DATABASE
+          value: 'ownclouddb'
+        # - name: MARIADB_MAX_ALLOWED_PACKET
+        #   value: '128M'
+        # - name: MARIADB_INNODB_LOG_FILE_SIZE
+        #   value: '64M'
+        # - name: MARIADB_INNODB_BUFFER_POOL_SIZE
+        #   value: '64M'
+        # - name: MARIADB_INNODB_FILE_FORMAT
+        #   value: 'Barracuda'
+        ports:
+        - name: mysql
+          containerPort: 3306
+        volumeMounts:
+        - name: storage
+          mountPath: /var/lib/mysql
+          subPath: mysql
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: pvc-owncloud
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+spec:
+  selector:
+    app: mariadb
+  ports:
+  - port: 3306
+    targetPort: 3306
+    protocol: TCP
