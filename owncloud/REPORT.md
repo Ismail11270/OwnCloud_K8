@@ -10,7 +10,7 @@ Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
   - ### Jiahao Tang</li>
   - ### Maria Vazquez</li>
 
----
+
 
 ## Task description
 - The aim of this exercise is to design and deploy production-ready (in terms of reliability,
