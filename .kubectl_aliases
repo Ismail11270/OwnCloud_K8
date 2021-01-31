@@ -1,5 +1,3 @@
-#bin/bash
-
 alias kget="kubectl get"
 alias klogs="kubectl logs"
 alias kpods="kget pods"
