@@ -1,4 +1,4 @@
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <h1 align=center>Microservice orchestration platforms<br>
 Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
 <h2 align=center>Implementation of the ownCloud system based on the<br/>Kubernetes cluster</h2>
@@ -13,7 +13,7 @@ Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
   <br/><br/><br/>
 
 ---
-<br/>
+<br/><br/>
 
 ## Task description
 - The aim of this exercise is to design and deploy production-ready (in terms of reliability,
