@@ -10,8 +10,6 @@ Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
   - ### Jiahao Tang</li>
   - ### Maria Vazquez</li>
 
-  <br/><br/><br/>
-
 ---
 
 ## Task description
