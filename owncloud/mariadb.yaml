@@ -28,32 +28,32 @@ spec:
         #     secretKeyRef:
         #       name: maria-secret
         #       key: maria-root-password
-        # - name: MARIADB_USERNAME
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: maria-secret
-        #       key: maria-username
-        # - name: MARIADB_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: maria-secret
-        #       key: maria-password
-        - name: MYSQL_ROOT_PASSWORD
-          value: owncloud
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: maria-secret
+              key: maria-username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: maria-secret
+              key: maria-password
+        # - name: MYSQL_ROOT_PASSWORD
+        #   value: owncloud
         # - name: MYSQL_USER
         #   value: owncloud
         # - name: MYSQL_PASSWORD
         #   value: owncloud
         - name: MYSQL_DATABASE
           value: 'ownclouddb'
-        # - name: MARIADB_MAX_ALLOWED_PACKET
-        #   value: '128M'
-        # - name: MARIADB_INNODB_LOG_FILE_SIZE
-        #   value: '64M'
-        # - name: MARIADB_INNODB_BUFFER_POOL_SIZE
-        #   value: '64M'
-        # - name: MARIADB_INNODB_FILE_FORMAT
-        #   value: 'Barracuda'
+        - name: MARIADB_MAX_ALLOWED_PACKET
+          value: '128M'
+        - name: MARIADB_INNODB_LOG_FILE_SIZE
+          value: '64M'
+        - name: MARIADB_INNODB_BUFFER_POOL_SIZE
+          value: '64M'
+        - name: MARIADB_INNODB_FILE_FORMAT
+          value: 'Barracuda'
         ports:
         - name: mysql
           containerPort: 3306
