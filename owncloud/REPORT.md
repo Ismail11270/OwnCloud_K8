@@ -137,7 +137,8 @@ MariaDB was chosen as the main database server, and it was implemented as a sing
 - MariaDB application configuration was defined in [**mariadb.yaml**](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/storage/mariadb.yaml)
 >In order to configure the database correctly **all the configurations** must be applied *in the same order*
 
-####Previously created persistent volume claim is used here to mount volume for mariadb database.
+#### Previously created persistent volume claim is used here to mount volume for mariadb database.
+
 ```yaml
         volumeMounts:
         - name: storage
