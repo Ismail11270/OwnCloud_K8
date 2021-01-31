@@ -6,8 +6,6 @@ metadata:
   labels:
     app: mariadb
 spec:
-  # strategy:
-    # type: Recreate
   serviceName: 'mariadb'
   replicas: 1
   selector:
@@ -20,7 +18,6 @@ spec:
     spec:
       containers:
       - name: mariadb
-        # image: centos/mariadb-102-centos7
         image: mariadb
         imagePullPolicy: Always  
         env:
@@ -35,11 +32,10 @@ spec:
               name: maria-secret
               key: maria-password
         - name: MYSQL_DATABASE
-          value: 'ownclouddb'
-          # valueFrom:
-          #   configMapKeyRef:
-          #     name: database-cfg
-          #     key: database-name
+          valueFrom:
+            configMapKeyRef:
+              name: database-cfg
+              key: database-name
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
