@@ -42,13 +42,25 @@ spec:
               name: maria-secret
               key: maria-root-password
         - name: MARIADB_MAX_ALLOWED_PACKET
-          value: '128M'
+          valueFrom:
+            configMapKeyRef:
+              name: database-cfg
+              key: max-allowed-packet
         - name: MARIADB_INNODB_LOG_FILE_SIZE
-          value: '64M'
+          valueFrom:
+            configMapKeyRef:
+              name: database-cfg
+              key: log-file-size
         - name: MARIADB_INNODB_BUFFER_POOL_SIZE
-          value: '64M'
+          valueFrom:
+            configMapKeyRef:
+              name: database-cfg
+              key: buffer-pool-size
         - name: MARIADB_INNODB_FILE_FORMAT
-          value: 'Barracuda'
+          valueFrom:
+            configMapKeyRef:
+              name: database-cfg
+              key: file-format
         ports:
         - name: mysql
           containerPort: 3306
