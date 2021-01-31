@@ -69,7 +69,7 @@ metadata:
 ```
 With ease of namespaces management in mind, **kubens** tool was installed and set to **my-cloud** as the default namespace.
 <br/>
-![kubens](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/kubens.png)
+![kubens](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/kubens.png)
 <br/>
 
 
@@ -79,7 +79,7 @@ For storing the data NFS Persistence Volume was configured. <br/>
 Nfs server was set up locally on the same machine using nfs-kernel-server. 
 /private directory was created with 777 access parameters and exported:
 <br/>
-![etc/exports](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/etc-exports.png)
+![etc/exports](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/etc-exports.png)
 <br/>
 Commands to export nfs directory and start nfs server: <br/>
 ```shell
@@ -124,7 +124,7 @@ spec:
 ```
 
 ### As a result following PV and PVC resources were created:
-![pv/pvc](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/etc-exports.png)
+![pv/pvc](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/etc-exports.png)
 <br/>
 ##### Created volume was used further in implementation to mount volumes for the database and owncloud.
 
@@ -137,8 +137,7 @@ MariaDB was chosen as the main database server, and it was implemented as a sing
 - MariaDB application configuration was defined in [**mariadb.yaml**](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/storage/mariadb.yaml)
 >In order to configure the database correctly **all the configurations** must be applied *in the same order*
 
-#### Previously created persistent volume claim is used here to mount volume for mariadb database.
-
+####Previously created persistent volume claim is used here to mount volume for mariadb database.
 ```yaml
         volumeMounts:
         - name: storage
@@ -177,11 +176,11 @@ documentation for the image. Volume mounts are again mounted on the PVC created 
 
 - Owncloud application can be easily re-scaled using `kubectl scale deployment owncloud --replicas=5`
 
-![rescaling](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/scaling_oc.png)
+![rescaling](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/scaling_oc.png)
 <br/>
 
 #### The two created applications (deployment and statefulset) were created together with internal services to provide access to the pods
-![resources](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/resources.png)
+![resources](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/resources.png)
 <br/>
 
 ### Ingress
@@ -206,7 +205,7 @@ The host for the owncloud service access was set to ***my-cloud.site***. After a
 Kubernetes dashboard resources come together with minikube installation. To use them a number of minikube addons have to be enabled.
 - Below is the list of all minikube addons enabled for this project:
   
-![addons](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/addons.png)
+![addons](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/addons.png)
 <br/>
 #### Dashboard ingress
 As dashboard service exists in a different namespace ( kubernetes-dasboard ), a new [dashboard-ingress.yaml](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/dashboard-ingress.yaml) 
@@ -215,27 +214,27 @@ was created to configure an external host to access the dashboard service. The s
 #### DNS Domain names
 - After ingress configurations were applied both of them can be view using `kubectl get ingress` command
 
-![ingress](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/ingress.png)
+![ingress](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/ingress.png)
 <br/>  
 
 - However, in order for this to work the hosts have to be added to /etc/hosts to be resolved properly by DNS.
 
-![etc/hosts](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/etc-hosts.png)
+![etc/hosts](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/etc-hosts.png)
 <br/>
 
 ### Results:
 - After all the steps completion ***owncloud*** service is available at [my-cloud.site]() and ***dashboard*** at [dashboard.my-cloud.site]()
-![owncloud/loginpage](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/owncloud-login.png)
+![owncloud/loginpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/owncloud-login.png)
 <br/>
   
 > To start using owncloud one has to provide credentials and select preferred database and db credentials, which in the case are mariadb/mysql.
 
-![owncloud/mainpage](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/owncloud-main.png)
+![owncloud/mainpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/owncloud-main.png)
 <br/>
 
 > After log in, main page of owncloud appears, and the application is ready to use at this point.
 
-![owncloud/dashboardpage](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/screenshots/dashboard-page.png)
+![owncloud/dashboardpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/dashboard-page.png)
 <br/>
 
 > Dashboard page is also present and functional at [dashboard.my-cloud.site]()
