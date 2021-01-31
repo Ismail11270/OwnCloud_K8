@@ -3,13 +3,13 @@
 Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
 <h2 align=center>Implementation of the ownCloud system based on the<br/>Kubernetes cluster</h2>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <h3>Authors:</h3>
-  <ul>
-  <li>Ismoil Atajanov</li>
-  <li>Brijesh Varsani</li>
-  <li>Jiahao Tang</li>
-  <li>Maria Vazquez</li>
-  </ul>
+
+## Authors:
+  - ### Ismoil Atajanov</li>
+  - ### Brijesh Varsani</li>
+  - ### Jiahao Tang</li>
+  - ### Maria Vazquez</li>
+
   <br/><br/><br/><br/>
 
 ---
@@ -26,10 +26,10 @@ Using Kubernetes<br/><br/>Project Report</h1><br/><br/>
 <h3>Following features have been implemented:</h3>
 
 - [x] system services are available at the dedicated DNS name or at least exposed locally
-- [x] all configuration is contained in a dedicated namespace 
+- [x] all configuration is contained in a dedicated namespace
 - [x] database service is not available from outside the cluster
 - [x] data persistence is ensured (i.e. data is stored independently of the system services
-container(s))
+  container(s))
 - [x] system services instances are multiplied to achieve basic availability
 - [x] basic cluster monitoring is deployed (e.g. Kuberbetes Dashboard)
 
@@ -76,7 +76,7 @@ With ease of namespaces management in mind, **kubens** tool was installed and se
 ### Storage
 
 For storing the data NFS Persistence Volume was configured. <br/>
-Nfs server was set up locally on the same machine using nfs-kernel-server. 
+Nfs server was set up locally on the same machine using nfs-kernel-server.
 /private directory was created with 777 access parameters and exported:
 <br/>
 ![etc/exports](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/etc-exports.png)
@@ -91,7 +91,7 @@ sudo systemctl start nfs-kernel-server
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
-metadata: 
+metadata:
   name: pv-owncloud
   namespace: my-cloud
 spec:
@@ -140,38 +140,38 @@ MariaDB was chosen as the main database server, and it was implemented as a sing
 ####Previously created persistent volume claim is used here to mount volume for mariadb database.
 ```yaml
         volumeMounts:
-        - name: storage
-          mountPath: /var/lib/mysql
-          subPath: mysql
-      volumes:
-      - name: storage
-        persistentVolumeClaim:
-          claimName: pvc-owncloud
+          - name: storage
+            mountPath: /var/lib/mysql
+            subPath: mysql
+        volumes:
+          - name: storage
+            persistentVolumeClaim:
+              claimName: pvc-owncloud
 ```
 
 ### Owncloud configuration
 - In order to start only single configuration [owncloud.yaml](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/owncloud.yaml) is required.
-<br/>
-  
-Most important part of the configuration is the container image which was set to ***owncloud*** and volume mounts suggested by the official 
+  <br/>
+
+Most important part of the configuration is the container image which was set to ***owncloud*** and volume mounts suggested by the official
 documentation for the image. Volume mounts are again mounted on the PVC created earlier:
 ```yaml
         volumeMounts:
-        - name: owncloud-storage
-          mountPath: /var/www/html/data
-          subPath: owncloud/data
+          - name: owncloud-storage
+            mountPath: /var/www/html/data
+            subPath: owncloud/data
         volumeMounts:
-        - name: owncloud-storage
-          mountPath: /var/www/html/apps
-          subPath: owncloud/apps
+          - name: owncloud-storage
+            mountPath: /var/www/html/apps
+            subPath: owncloud/apps
         volumeMounts:
-        - name: owncloud-storage
-          mountPath: /var/www/html/config
-          subPath: owncloud/config
-      volumes:
-      - name: owncloud-storage
-        persistentVolumeClaim:
-          claimName: pvc-owncloud
+          - name: owncloud-storage
+            mountPath: /var/www/html/config
+            subPath: owncloud/config
+        volumes:
+          - name: owncloud-storage
+            persistentVolumeClaim:
+              claimName: pvc-owncloud
 ```
 
 - Owncloud application can be easily re-scaled using `kubectl scale deployment owncloud --replicas=5`
@@ -190,32 +190,32 @@ The host for the owncloud service access was set to ***my-cloud.site***. After a
 - Ingress rules
 ```yaml
   rules:
-  - host: my-cloud.site
-    http:
-      paths:
-      - path: "/"
-        pathType: Prefix
-        backend:
-          service:
-            name: owncloud
-            port:
-              number: 80
+    - host: my-cloud.site
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: owncloud
+                port:
+                  number: 80
 ```
 ### Kubernetes Dashboard
 Kubernetes dashboard resources come together with minikube installation. To use them a number of minikube addons have to be enabled.
 - Below is the list of all minikube addons enabled for this project:
-  
+
 ![addons](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/addons.png)
 <br/>
 #### Dashboard ingress
-As dashboard service exists in a different namespace ( kubernetes-dasboard ), a new [dashboard-ingress.yaml](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/dashboard-ingress.yaml) 
+As dashboard service exists in a different namespace ( kubernetes-dasboard ), a new [dashboard-ingress.yaml](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/dashboard-ingress.yaml)
 was created to configure an external host to access the dashboard service. The service was exposed at host ***dashboard.my-cloud.size***.
 
 #### DNS Domain names
 - After ingress configurations were applied both of them can be view using `kubectl get ingress` command
 
 ![ingress](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/ingress.png)
-<br/>  
+<br/>
 
 - However, in order for this to work the hosts have to be added to /etc/hosts to be resolved properly by DNS.
 
@@ -224,9 +224,9 @@ was created to configure an external host to access the dashboard service. The s
 
 ### Results:
 - After all the steps completion ***owncloud*** service is available at [my-cloud.site]() and ***dashboard*** at [dashboard.my-cloud.site]()
-![owncloud/loginpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/owncloud-login.png)
-<br/>
-  
+  ![owncloud/loginpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/owncloud-login.png)
+  <br/>
+
 > To start using owncloud one has to provide credentials and select preferred database and db credentials, which in the case are mariadb/mysql.
 
 ![owncloud/mainpage](https://raw.githubusercontent.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/master/screenshots/owncloud-main.png)
