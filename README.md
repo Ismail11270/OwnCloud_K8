@@ -1,3 +1,5 @@
 # Microservice orchestration platforms using Kubernetes
 
--Laboratory Reports and Final Project
+## See /owncloud directory for owncloud implementation with kubernetes
+
+## [Owncloud project report](https://github.com/Ismail11270/AEII_2020_MSK_-Ismoil_Atajanov-/blob/master/owncloud/REPORT.md)
