@@ -20,14 +20,10 @@ spec:
     spec:
       containers:
       - name: mariadb
-        image: centos/mariadb-102-centos7
-        imagePullPolicy: Always
+        # image: centos/mariadb-102-centos7
+        image: mariadb
+        imagePullPolicy: Always  
         env:
-        # - name: MARIADB_ROOT_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: maria-secret
-        #       key: maria-root-password
         - name: MYSQL_USER
           valueFrom:
             secretKeyRef:
@@ -38,14 +34,17 @@ spec:
             secretKeyRef:
               name: maria-secret
               key: maria-password
-        # - name: MYSQL_ROOT_PASSWORD
-        #   value: owncloud
-        # - name: MYSQL_USER
-        #   value: owncloud
-        # - name: MYSQL_PASSWORD
-        #   value: owncloud
         - name: MYSQL_DATABASE
           value: 'ownclouddb'
+          # valueFrom:
+          #   configMapKeyRef:
+          #     name: database-cfg
+          #     key: database-name
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: maria-secret
+              key: maria-root-password
         - name: MARIADB_MAX_ALLOWED_PACKET
           value: '128M'
         - name: MARIADB_INNODB_LOG_FILE_SIZE

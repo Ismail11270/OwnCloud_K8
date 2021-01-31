@@ -1,0 +1,11 @@
+#bin/bash
+
+alias kget="kubectl get"
+alias klogs="kubectl logs"
+alias kpods="kget pods"
+alias kdelete="kubectl delete"
+alias kdeletef="kubectl delete -f"
+alias kapply="kubectl apply -f"
+alias krestart="kubectl rollout restart"
+alias kdrestart="krestart deployment"
+

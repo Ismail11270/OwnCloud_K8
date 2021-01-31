@@ -18,38 +18,20 @@ spec:
       containers:
       - name: owncloud
         image: owncloud
-        env:
-        # - name: OWNCLOUD_DOMAIN
-        #   value: my-cloud.site
-        # - name: OWNCLOUD_LOGLEVEL
-        #   value: '0'
-        # - name: OWNCLOUD_DB_TYPE
-        #   value: mysql
-        # - name: OWNCLOUD_DB_NAME
-        #   value: 'ownclouddb'
-        # - name: OWNCLOUD_DB_USERNAME
-        #   value: root
-        # - name: OWNCLOUD_DB_PASSWORD
-        #   value: owncloud
-        # - name: OWNCLOUD_ADMIN_USERNAME
-        #   value: zoobie
-        # - name: OWNCLOUD_ADMIN_PASSWORD
-        #   value: zoobie
-        # - name: OWNCLOUD_DB_HOST
-          # value: mariadb:3306
-        # - name: OWNCLOUD_MYSQL_UTF8MB4
-        #   value: 'false'
-        # - name: OWNCLOUD_REDIS_ENABLED
-        #   value: 'false'
-        # - name: OWNCLOUD_VOLUME_ROOT
-          # value: /owncloud/volume
-        # - name: OWNCLOUDPATH
         ports:
         - containerPort: 80
         volumeMounts:
         - name: owncloud-storage
-          mountPath: /f/mnt/data
+          mountPath: /var/www/html/data
           subPath: owncloud/data
+        volumeMounts:
+        - name: owncloud-storage
+          mountPath: /var/www/html/apps
+          subPath: owncloud/apps
+        volumeMounts:
+        - name: owncloud-storage
+          mountPath: /var/www/html/config
+          subPath: owncloud/config
       volumes:
       - name: owncloud-storage
         persistentVolumeClaim:
